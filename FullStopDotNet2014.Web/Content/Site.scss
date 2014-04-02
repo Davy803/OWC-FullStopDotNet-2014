@@ -1,4 +1,6 @@
-﻿body {
+﻿$error-color: #b94a48;
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -18,7 +20,7 @@ textarea {
 
 /* styles for validation helpers */
 .field-validation-error {
-    color: #b94a48;
+    color: $error-color;
 }
 
 .field-validation-valid {
@@ -26,7 +28,7 @@ textarea {
 }
 
 input.input-validation-error {
-    border: 1px solid #b94a48;
+    border: 1px solid $error-color;
 }
 
 input[type="checkbox"].input-validation-error {
@@ -34,7 +36,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .validation-summary-errors {
-    color: #b94a48;
+    color: $error-color;
 }
 
 .validation-summary-valid {

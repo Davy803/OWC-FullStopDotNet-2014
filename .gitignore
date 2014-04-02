@@ -157,3 +157,4 @@ $RECYCLE.BIN/
 packages/
 FullStopDotNet2014.Web/App_Data/aspnet-OWC-FullStopDotNet.mdf
 FullStopDotNet2014.Web/App_Data/aspnet-OWC-FullStopDotNet_log.ldf
+FullStopDotNet2014.Web/Content/Site.min.css

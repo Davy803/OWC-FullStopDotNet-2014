@@ -24,7 +24,7 @@ namespace FullStopDotNet2014.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.scss"));
         }
     }
 }
