@@ -154,3 +154,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+packages/
+FullStopDotNet2014.Web/App_Data/aspnet-OWC-FullStopDotNet.mdf
+FullStopDotNet2014.Web/App_Data/aspnet-OWC-FullStopDotNet_log.ldf
