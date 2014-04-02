@@ -1,0 +1,28 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ include file="SettingsManager\SettingsManager.tt" #>
+<#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\FullStopDotNet2014.Resources.dll" #>
+<#@ import namespace="Resources.Concrete" #>
+<# //System.IO is actually used.  Not sure why Resharper thinks it's not needed #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".cs" #>
+
+<# 
+	var hostServiceProvider = (IServiceProvider)this.Host;
+	var config = new SettingsManager(hostServiceProvider);
+    var connectionStringSettings = config.ConnectionStrings["DefaultConnection"];
+    var currentDirectory = Path.GetDirectoryName(config.CurrentProject.FileName);
+	
+    var appDataDirectory = Path.Combine(currentDirectory, "App_Data");
+	var builder = new Resources.Utility.ResourceBuilder();
+	//|DataDirectory| would only apply to localdb, but we need to set it manually because T4 templates run in the VS directory
+    var connectionString = connectionStringSettings.ConnectionString.Replace("|DataDirectory|", appDataDirectory);
+
+    var resourcesFileContent =
+        builder.Create(
+            new DbResourceProvider(connectionString),
+            summaryCulture: "en-us",
+			className: "TextResources",
+            namespaceName: "FullStopDotNet2014.Web.Resources");
+
+    WriteLine(resourcesFileContent);
+#>

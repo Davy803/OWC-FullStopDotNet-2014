@@ -58,8 +58,13 @@
     <Compile Include="Migrations\201404020250244_InitialCreate.Designer.cs">
       <DependentUpon>201404020250244_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404020400594_AddTextResources.cs" />
+    <Compile Include="Migrations\201404020400594_AddTextResources.Designer.cs">
+      <DependentUpon>201404020400594_AddTextResources.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\TextResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +77,15 @@
     <EmbeddedResource Include="Migrations\201404020250244_InitialCreate.resx">
       <DependentUpon>201404020250244_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404020400594_AddTextResources.resx">
+      <DependentUpon>201404020400594_AddTextResources.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FullStopDotNet2014.Common\FullStopDotNet2014.Common.csproj">
+      <Project>{d721844d-141f-4957-976b-0d44fc56cb9c}</Project>
+      <Name>FullStopDotNet2014.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

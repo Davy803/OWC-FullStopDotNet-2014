@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using FullStopDotNet2014.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -12,5 +13,7 @@ namespace FullStopDotNet2014.Data
             : base("DefaultConnection")
         {
         }
+
+        public DbSet<TextResource> TextResources { get; set; }
     }
 }

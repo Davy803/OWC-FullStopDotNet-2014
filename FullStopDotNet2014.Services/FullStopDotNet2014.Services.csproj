@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FullStopDotNet2014.Services</RootNamespace>
     <AssemblyName>FullStopDotNet2014.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FullStopDotNet2014.Common\FullStopDotNet2014.Common.csproj">
+      <Project>{d721844d-141f-4957-976b-0d44fc56cb9c}</Project>
+      <Name>FullStopDotNet2014.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FullStopDotNet2014.Data\FullStopDotNet2014.Data.csproj">
+      <Project>{55e9c623-931c-40f8-bfa2-b4c9d247a678}</Project>
+      <Name>FullStopDotNet2014.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

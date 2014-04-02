@@ -1,0 +1,47 @@
+﻿<#@ template language="C#" hostspecific="True" debug="True" #>
+<#@ output extension="log" #>
+<#@ include file="SettingsManager\SettingsManager.tt" #>
+<#
+
+
+
+// <copyright file="SettingsManagerCreator.tt" company="George J. Capnias">
+//  Copyright © George J. Capnias. All Rights Reserved.
+// </copyright>
+
+//NOTE: This file is here to demonstrate how to use the SettingsManager.tt file
+
+    IServiceProvider hostServiceProvider = (IServiceProvider)this.Host;
+	SettingsManager config = new SettingsManager(hostServiceProvider);
+
+
+    this.ClearIndent();
+    this.WriteLine("Namespace   : {0}", config.Namespace);
+    this.WriteLine("AssemblyName: {0}", config.AssemblyName);
+    this.WriteLine("ProjectPath : {0}", config.ProjectPath);
+    this.WriteLine("ConfigPath  : {0}", config.ConfigPath);
+    this.WriteLine("Is App      : {0}", config.IsApplication);
+    this.WriteLine("Is WebApp   : {0}", config.IsWebApplication);
+	
+	// Display each ConnectionStringSettings.
+    this.WriteLine("");
+    this.WriteLine("ConnectionStrings:");
+    this.PushIndent("\t");
+	foreach (ConnectionStringSettings connectionstringentry in config.ConnectionStrings)
+	{
+		this.WriteLine("Name: {0}, ConnectionString: {1}, ProviderName: {2}", connectionstringentry.Name, connectionstringentry.ConnectionString, connectionstringentry.ProviderName);
+	}
+    this.PopIndent();
+    this.WriteLine("");
+	
+	// Display each KeyValueConfigurationElement.
+    this.WriteLine("ApplicationSettings:");
+    this.PushIndent("\t");
+	foreach (KeyValueConfigurationElement keyValueElement in config.AppSettings)
+	{
+		this.WriteLine("Key: {0}, Value: {1}", keyValueElement.Key, keyValueElement.Value);
+	}
+    this.PopIndent();
+    this.WriteLine("");
+
+#>

@@ -1,3 +1,5 @@
+using FullStopDotNet2014.Data.Models;
+
 namespace FullStopDotNet2014.Data.Migrations
 {
     using System;
@@ -17,6 +19,15 @@ namespace FullStopDotNet2014.Data.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
+            context.TextResources.AddOrUpdate(x => new {x.Name, x.Culture},
+                new TextResource
+                {
+                    Culture = "en-US",
+                    Name = "LoremIpsum",
+                    Value = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                });
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //

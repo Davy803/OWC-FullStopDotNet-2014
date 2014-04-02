@@ -1,0 +1,169 @@
+﻿<#@ assembly name="EnvDTE" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Configuration" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System.Configuration" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Xml" #>
+<#+
+// <copyright file="SettingsManager.tt">
+//
+//  The contents of this file are subject to the Mozilla Public
+//  License Version 1.1 (the "License"); you may not use this file
+//  except in compliance with the License. You may obtain a copy of
+//  the License at http://www.mozilla.org/MPL/
+//  
+//  Software distributed under the License is distributed on an 
+//  "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+//  implied. See the License for the specific language governing
+//  rights and limitations under the License.
+//
+// </copyright>
+
+public class SettingsManager
+{
+	private bool _IsWebApplication = false;
+	private bool _IsApplication = false;
+	private IServiceProvider _ServiceProvider;
+	
+	private System.Configuration.Configuration _AppConfig;
+    private EnvDTE.Project _CurrentProject;
+    
+	public System.Configuration.Configuration Configuration
+	{
+		get	{ return _AppConfig; }
+	}
+	
+	public string ConfigPath
+	{
+		get	{ return GetConfigPath(); }
+	}
+	
+	public string ProjectPath
+	{
+		get	{ return GetProjectPath(); }
+	}
+	
+	public EnvDTE.Project CurrentProject
+	{
+        get { return _CurrentProject; }
+	}
+	
+    public bool IsApplication
+    {
+        get { return _IsApplication; }
+    }
+	
+    public bool IsWebApplication
+    {
+        get { return _IsWebApplication; }
+    }
+	
+    public string Namespace
+    {
+        get { return _CurrentProject.Properties.Item("DefaultNamespace").Value.ToString(); }
+    }
+
+	public string AssemblyName
+	{
+		get	{ return _CurrentProject.Properties.Item("AssemblyName").Value.ToString(); }
+	}
+        
+    public ConnectionStringSettingsCollection ConnectionStrings
+    {
+        get { return _AppConfig.ConnectionStrings.ConnectionStrings; }
+    }
+	
+    public KeyValueConfigurationCollection AppSettings
+    {
+        get { return _AppConfig.AppSettings.Settings; }
+    }
+
+    public SettingsManager(IServiceProvider ServiceProvider)
+    {
+		_ServiceProvider = ServiceProvider;
+		_CurrentProject = GetCurrentProject();
+		ExeConfigurationFileMap configFile = new ExeConfigurationFileMap();
+		configFile.ExeConfigFilename = GetConfigPath();
+		_AppConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(configFile, ConfigurationUserLevel.None);
+    }
+    
+    private EnvDTE.Project GetCurrentProject()
+    {
+        if (_ServiceProvider == null)
+            throw new Exception("Host property returned unexpected value (null)");
+		
+        EnvDTE.DTE dte = (EnvDTE.DTE)_ServiceProvider.GetService(typeof(EnvDTE.DTE));
+        if (dte == null)
+            throw new Exception("Unable to retrieve EnvDTE.DTE");
+		
+        Array activeSolutionProjects = (Array)dte.ActiveSolutionProjects;
+        if (activeSolutionProjects == null)
+            throw new Exception("DTE.ActiveSolutionProjects returned null");
+		
+        EnvDTE.Project dteProject = (EnvDTE.Project)activeSolutionProjects.GetValue(0);
+        if (dteProject == null)
+            throw new Exception("DTE.ActiveSolutionProjects[0] returned null");
+		
+        return dteProject;
+    }
+	
+    private string GetProjectPath()
+    {
+        EnvDTE.Project project = _CurrentProject;
+        System.IO.FileInfo info = new System.IO.FileInfo(project.FullName);
+        return info.Directory.FullName;
+	}
+	
+    private string GetConfigPath()
+    {
+        EnvDTE.Project project = _CurrentProject;
+        foreach (EnvDTE.ProjectItem item in project.ProjectItems)
+        {
+            // if it is the app.config file, then open it up
+            if (string.Compare(item.Name, "App.config", true) == 0)
+            {
+				_IsApplication = true;
+                return GetProjectPath() + "\\" + item.Name;
+            }
+            
+            // if it is the web.config file, then open it up
+            if (string.Compare(item.Name, "Web.config", true) == 0)
+            {
+				_IsWebApplication = true;
+                return GetProjectPath() + "\\" + item.Name;
+            }
+        }
+        return "";
+    }
+    
+    override public string ToString()
+    {
+        StringBuilder buffer = new StringBuilder();
+        buffer.AppendLine(string.Format("Namespace   : {0}", this.Namespace));
+        buffer.AppendLine(string.Format("AssemblyName: {0}", this.AssemblyName));
+        buffer.AppendLine(string.Format("ProjectPath : {0}", this.ProjectPath));
+        buffer.AppendLine(string.Format("ConfigPath  : {0}", this.ConfigPath));
+        buffer.AppendLine(string.Format("Is App      : {0}", this.IsApplication));
+        buffer.AppendLine(string.Format("Is WebApp   : {0}", this.IsWebApplication));
+        buffer.AppendLine("");
+        buffer.AppendLine("ConnectionStrings:");
+		foreach (ConnectionStringSettings item in this.ConnectionStrings)
+		{
+			buffer.AppendLine(string.Format("\tName: {0}, ConnectionString: {1}, ProviderName: {2}", item.Name, item.ConnectionString, item.ProviderName));
+		}
+        buffer.AppendLine("");
+		// Display each KeyValueConfigurationElement.
+        buffer.AppendLine("ApplicationSettings:");
+		foreach (KeyValueConfigurationElement item in this.AppSettings)
+		{
+			buffer.AppendLine(string.Format("\tKey: {0}, Value: {1}", item.Key, item.Value));
+		}
+        
+		return buffer.ToString();
+    }
+}
+#>
