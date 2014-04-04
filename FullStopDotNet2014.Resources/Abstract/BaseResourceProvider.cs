@@ -36,12 +36,15 @@ namespace Resources.Abstract
 
         public static void SetResourceCache(string name, string culture, string value)
         {
-            var cacheKey = GetCacheKey(name, culture);
-            if (resources.ContainsKey(cacheKey))
+            if (resources != null)
             {
-                resources[cacheKey].Value = value;
+                var cacheKey = GetCacheKey(name, culture);
+                if (resources.ContainsKey(cacheKey))
+                {
+                    resources[cacheKey].Value = value;
+                }
             }
-        }
+    }
 
         private object InternalGetResource(string name, string culture)
         {
@@ -83,7 +86,7 @@ namespace Resources.Abstract
 
         private static string GetCacheKey(string name, string culture)
         {
-            return string.Format("{0}.{1}", culture, name);
+            return string.Format("{0}.{1}", culture.ToLower(), name);
         }
 
 

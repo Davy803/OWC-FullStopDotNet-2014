@@ -26,6 +26,7 @@
         /// ";
 #>
 using System.Globalization;
+using System.Web;
 using Resources.Abstract;
 using Resources.Concrete;
 
@@ -38,13 +39,13 @@ namespace FullStopDotNet2014.Web.Resources
 	<#foreach (var resource in resources)
 {#>
     /// <summary>
-        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine)#>
+        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine).Replace("\r", summaryNewLine).Replace("\n", summaryNewLine)#>
         /// </summary>        
-        public static <#=resource.Type#> <#=resource.Name.Replace(" ", "_")#> 
+        public static IHtmlString <#=resource.Name.Replace(" ", "_")#> 
         {
             get 
             {
-                return (<#=resource.Type#>) resourceProvider.GetResource("<#=resource.Name#>", CultureInfo.CurrentUICulture.Name);
+                return new HtmlString((string)resourceProvider.GetResource("<#=resource.Name#>", CultureInfo.CurrentUICulture.Name));
             }
         }        
 <#}#>
@@ -55,7 +56,7 @@ namespace FullStopDotNet2014.Web.Resources
 	<#foreach (var resource in resources)
 {#>
     /// <summary>
-        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine)#>
+        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine).Replace("\r", summaryNewLine).Replace("\n", summaryNewLine)#>
         /// </summary>        
         public const string <#=resource.Name.Replace(" ", "_")#> = "<#=resource.Name#>";
 <#}#>

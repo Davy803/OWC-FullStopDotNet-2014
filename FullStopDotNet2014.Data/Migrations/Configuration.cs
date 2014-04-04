@@ -1,4 +1,5 @@
 using FullStopDotNet2014.Data.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FullStopDotNet2014.Data.Migrations
 {
@@ -28,16 +29,9 @@ namespace FullStopDotNet2014.Data.Migrations
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
 voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                 });
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+
+            context.Roles.AddOrUpdate(x => x.Name, new IdentityRole("adminstrator"));
+
         }
     }
 }
