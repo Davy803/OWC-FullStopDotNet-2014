@@ -25,7 +25,7 @@ namespace Resources.Concrete
             connectionString = connection;
         }
 
-        protected override IList<ResourceEntry> ReadResources()
+        public override IList<ResourceEntry> ReadResources()
         {
             var resources = new List<ResourceEntry>();
 
@@ -53,7 +53,7 @@ namespace Resources.Concrete
             
         }
 
-        protected override ResourceEntry ReadResource(string name, string culture)
+        public override ResourceEntry ReadResource(string name, string culture)
         {
             ResourceEntry resource = null;
 

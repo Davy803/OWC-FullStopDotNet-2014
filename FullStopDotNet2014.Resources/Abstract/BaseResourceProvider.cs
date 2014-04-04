@@ -34,6 +34,15 @@ namespace Resources.Abstract
             return resource;
         }
 
+        public static void SetResourceCache(string name, string culture, string value)
+        {
+            var cacheKey = GetCacheKey(name, culture);
+            if (resources.ContainsKey(cacheKey))
+            {
+                resources[cacheKey].Value = value;
+            }
+        }
+
         private object InternalGetResource(string name, string culture)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -82,7 +91,7 @@ namespace Resources.Abstract
         /// Returns all resources for all cultures. (Needed for caching)
         /// </summary>
         /// <returns>A list of resources</returns>
-        protected abstract IList<ResourceEntry> ReadResources();
+        public abstract IList<ResourceEntry> ReadResources();
 
 
         /// <summary>
@@ -91,7 +100,7 @@ namespace Resources.Abstract
         /// <param name="name">Resorce name (ie key)</param>
         /// <param name="culture">Culture code</param>
         /// <returns>Resource</returns>
-        protected abstract ResourceEntry ReadResource(string name, string culture);
+        public abstract ResourceEntry ReadResource(string name, string culture);
         
     }
 }

@@ -1,11 +1,12 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ include file="SettingsManager\SettingsManager.tt" #>
 <#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\FullStopDotNet2014.Resources.dll" #>
+<#@ assembly name="System.Core" #>
 <#@ import namespace="Resources.Concrete" #>
 <# //System.IO is actually used.  Not sure why Resharper thinks it's not needed #>
 <#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
 <#@ output extension=".cs" #>
-
 <# 
 	var hostServiceProvider = (IServiceProvider)this.Host;
 	var config = new SettingsManager(hostServiceProvider);
@@ -13,16 +14,50 @@
     var currentDirectory = Path.GetDirectoryName(config.CurrentProject.FileName);
 	
     var appDataDirectory = Path.Combine(currentDirectory, "App_Data");
-	var builder = new Resources.Utility.ResourceBuilder();
 	//|DataDirectory| would only apply to localdb, but we need to set it manually because T4 templates run in the VS directory
     var connectionString = connectionStringSettings.ConnectionString.Replace("|DataDirectory|", appDataDirectory);
 
-    var resourcesFileContent =
-        builder.Create(
-            new DbResourceProvider(connectionString),
-            summaryCulture: "en-us",
-			className: "TextResources",
-            namespaceName: "FullStopDotNet2014.Web.Resources");
+	
+    var resourceProvider = new DbResourceProvider(connectionString);
 
-    WriteLine(resourcesFileContent);
+    var resources = resourceProvider.ReadResources().Where(x => x.Culture == "en-US").ToList();
+
+    const string summaryNewLine = @"
+        /// ";
 #>
+using System.Globalization;
+using Resources.Abstract;
+using Resources.Concrete;
+
+namespace FullStopDotNet2014.Web.Resources
+{
+    public static class TextResources 
+    {
+        private static readonly IResourceProvider resourceProvider = new DbResourceProvider(@"<#=connectionString#>");
+
+	<#foreach (var resource in resources)
+{#>
+    /// <summary>
+        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine)#>
+        /// </summary>        
+        public static <#=resource.Type#> <#=resource.Name.Replace(" ", "_")#> 
+        {
+            get 
+            {
+                return (<#=resource.Type#>) resourceProvider.GetResource("<#=resource.Name#>", CultureInfo.CurrentUICulture.Name);
+            }
+        }        
+<#}#>
+    }  
+
+    public static class TextResourceKeys 
+    {
+	<#foreach (var resource in resources)
+{#>
+    /// <summary>
+        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine)#>
+        /// </summary>        
+        public const string <#=resource.Name.Replace(" ", "_")#> = "<#=resource.Name#>";
+<#}#>
+    }  
+}

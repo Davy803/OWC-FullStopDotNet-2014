@@ -24,13 +24,9 @@ namespace Resources.Utility
         /// <returns>Generated class file full path</returns>
         public string Create(BaseResourceProvider provider, string namespaceName = "Resources", string className = "Resources", string filePath = null, string summaryCulture = null)
         {
-            // Retrieve all resources           
-            MethodInfo method = provider.GetType().GetMethod("ReadResources", BindingFlags.Instance | BindingFlags.NonPublic);
-
-            IList<ResourceEntry> resources = method.Invoke(provider, null) as List<ResourceEntry>;
-
-            if (resources == null || resources.Count == 0)
+            if (provider.ReadResources() == null || provider.ReadResources().Count == 0)
                 throw new Exception(string.Format("No resources were found in {0}", provider.GetType().Name));
+            var resources = provider.ReadResources();
 
             // Get a unique list of resource names (keys)
             var keys = resources.Select(r => r.Name).Distinct();
@@ -99,7 +95,5 @@ namespace {0}
             return result;
 
         }
-
-
     }
 }
