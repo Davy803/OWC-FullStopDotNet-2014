@@ -1,4 +1,5 @@
-﻿@using FullStopDotNet2014.Web.Extensions
+﻿@model FullStopDotNet2014.Web.ViewModels.ViewModelBase
+@using FullStopDotNet2014.Web.Extensions
 @using FullStopDotNet2014.Web.Resources
 @{
     ViewBag.Title = "About";
@@ -6,4 +7,6 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p class="@Html.EditableClass()" id="@TextResourceKeys.LoremIpsum" >@TextResources.LoremIpsum </p>
+<p class="@Html.EditableClass()" id="@TextResourceKeys.LoremIpsum" >@Model.TextResources.LoremIpsum </p>
+
+<a href="#" @Html.EditableData(@Url.Action("Edit", "TextResources", new { Area="Admin", name = TextResourceKeys.LoremIpsum, culture="en-US" }))>Edit As Object</a>

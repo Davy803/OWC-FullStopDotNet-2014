@@ -3,6 +3,7 @@
 <#@ assembly name="System.Configuration" #>
 <#@ assembly name="System.Xml" #>
 <#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="EnvDTE" #>
 <#@ import namespace="System.Configuration" #>
 <#@ import namespace="System.Diagnostics" #>

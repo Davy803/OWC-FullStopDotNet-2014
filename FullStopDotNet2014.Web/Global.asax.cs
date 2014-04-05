@@ -10,11 +10,12 @@ namespace FullStopDotNet2014.Web
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            
         }
     }
 }

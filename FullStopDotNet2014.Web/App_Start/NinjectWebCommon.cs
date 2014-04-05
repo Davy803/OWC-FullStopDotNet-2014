@@ -1,4 +1,10 @@
+using FullStopDotNet2014.Data;
+using FullStopDotNet2014.Services.Implementation;
+using FullStopDotNet2014.Services.Interfaces;
 using FullStopDotNet2014.Web.App_Start;
+using Ninject.Extensions.Conventions;
+using Resources.Abstract;
+using Resources.Concrete;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
@@ -64,7 +70,21 @@ namespace FullStopDotNet2014.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            
+            //kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
+            kernel.Bind<IResourceProvider>().To<DbResourceProvider>().InRequestScope();
+            //kernel.Bind(
+            //    x =>
+            //        x.FromAssemblyContaining<ServiceBase>()
+            //            .SelectAllInterfaces()
+            //            .BindSingleInterface()
+            //            .Configure(c => c.InRequestScope()));
+            kernel.Bind(
+                x =>
+                    x.FromAssemblyContaining<ServiceBase>()
+                        .SelectAllClasses()
+                        .BindDefaultInterface()
+                        .Configure(c => c.InRequestScope()));
+
         }        
     }
 }

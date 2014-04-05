@@ -1,13 +1,21 @@
-﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ include file="SettingsManager\SettingsManager.tt" #>
 <#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\FullStopDotNet2014.Resources.dll" #>
+<#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\FullStopDotNet2014.Data.dll" #>
+<#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\Microsoft.AspNet.Identity.Core.dll" #>
+<#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll" #>
+<#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\EntityFramework.SqlServer.dll" #>
+<#@ assembly name="$(SolutionDir)FullStopDotNet2014.Resources\bin\Debug\EntityFramework.dll" #>
 <#@ assembly name="System.Core" #>
+<#@ import namespace="FullStopDotNet2014.Data" #>
 <#@ import namespace="Resources.Concrete" #>
 <# //System.IO is actually used.  Not sure why Resharper thinks it's not needed #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
 <#@ output extension=".cs" #>
-<# 
+<#
+
+    //throw new Exception(System.Data.Entity.SqlServer.SqlProviderServices.Instance.GetType().ToString());
 	var hostServiceProvider = (IServiceProvider)this.Host;
 	var config = new SettingsManager(hostServiceProvider);
     var connectionStringSettings = config.ConnectionStrings["DefaultConnection"];
@@ -18,7 +26,7 @@
     var connectionString = connectionStringSettings.ConnectionString.Replace("|DataDirectory|", appDataDirectory);
 
 	
-    var resourceProvider = new DbResourceProvider(connectionString);
+    var resourceProvider = new DbResourceProvider();
 
     var resources = resourceProvider.ReadResources().Where(x => x.Culture == "en-US").ToList();
 
@@ -28,24 +36,29 @@
 using System.Globalization;
 using System.Web;
 using Resources.Abstract;
-using Resources.Concrete;
 
 namespace FullStopDotNet2014.Web.Resources
 {
-    public static class TextResources 
+    public class TextResources 
     {
-        private static readonly IResourceProvider resourceProvider = new DbResourceProvider(@"<#=connectionString#>");
+        private readonly IResourceProvider _resourceProvider;
 
+        public TextResources(IResourceProvider resourceProvider)
+        {
+            _resourceProvider = resourceProvider;
+        }
 	<#foreach (var resource in resources)
-{#>
+{ 
+//We use Regex.Replace below because we need to handle any combination of \r, \n, or \r\n
+#>
     /// <summary>
-        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine).Replace("\r", summaryNewLine).Replace("\n", summaryNewLine)#>
+        /// <#= Regex.Replace(resource.Value, @"\r\n?|\n", summaryNewLine) #>
         /// </summary>        
-        public static IHtmlString <#=resource.Name.Replace(" ", "_")#> 
+        public IHtmlString <#=resource.Name.Replace(" ", "_")#> 
         {
             get 
             {
-                return new HtmlString((string)resourceProvider.GetResource("<#=resource.Name#>", CultureInfo.CurrentUICulture.Name));
+                return new HtmlString((string)_resourceProvider.GetResource("<#=resource.Name#>", CultureInfo.CurrentUICulture.Name));
             }
         }        
 <#}#>
@@ -56,7 +69,7 @@ namespace FullStopDotNet2014.Web.Resources
 	<#foreach (var resource in resources)
 {#>
     /// <summary>
-        /// <#=resource.Value.Replace(Environment.NewLine, summaryNewLine).Replace("\r", summaryNewLine).Replace("\n", summaryNewLine)#>
+        /// <#= Regex.Replace(resource.Value, @"\r\n?|\n", summaryNewLine)#>
         /// </summary>        
         public const string <#=resource.Name.Replace(" ", "_")#> = "<#=resource.Name#>";
 <#}#>

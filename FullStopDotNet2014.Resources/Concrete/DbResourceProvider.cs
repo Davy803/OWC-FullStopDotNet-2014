@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,16 @@ namespace Resources.Concrete
     public class DbResourceProvider : BaseResourceProvider
     {
         // Database connection string        
-        private static string connectionString = null;
         private ApplicationDbContext _dbContext;
 
-        public DbResourceProvider(){
-            
-            connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        }
-
-        public DbResourceProvider(string connection)
+        public DbResourceProvider()
         {
-            connectionString = connection;
-            _dbContext = new ApplicationDbContext(connection);
+            _dbContext = new ApplicationDbContext();
+        }
+        
+        public DbResourceProvider(ApplicationDbContext applicationDbContext)
+        {
+            _dbContext = applicationDbContext;
         }
 
         public override IList<ResourceEntry> ReadResources()

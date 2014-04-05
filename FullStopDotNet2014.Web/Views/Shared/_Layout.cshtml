@@ -48,7 +48,27 @@
     }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        $('[data-edit-url]').click(function () {
+            var $modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
+            $modal.appendTo('body');
+            var url = $(this).attr('data-edit-url');
+            
+            $modal.load(url, function () {
+                $modal.modal();
+                $modal.find('form').submit(function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
 
+                    var data = $(this).serialize();
+                    $.post($(this).attr('action'), data, function() {
+                        window.location = window.location;
+                    });
+                });
+            });
+            
+        })
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

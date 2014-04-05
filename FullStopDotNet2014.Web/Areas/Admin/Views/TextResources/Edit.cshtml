@@ -1,0 +1,10 @@
+﻿@model FullStopDotNet2014.Web.Areas.Admin.Controllers.TextResourceViewModel
+
+@{
+    Layout = "~/Views/Shared/_ModalLayout.cshtml";
+    ViewBag.Url = Url.Action("Edit");
+}
+
+<div>
+    @Html.EditorForModel()
+</div>

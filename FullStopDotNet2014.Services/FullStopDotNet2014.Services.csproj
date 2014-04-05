@@ -56,7 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\UserService.cs" />
+    <Compile Include="Interfaces\ITextResourceService.cs" />
+    <Compile Include="Implementation\ServiceBase.cs" />
+    <Compile Include="Implementation\TextResourceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +70,10 @@
       <Project>{55e9c623-931c-40f8-bfa2-b4c9d247a678}</Project>
       <Name>FullStopDotNet2014.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FullStopDotNet2014.Resources\FullStopDotNet2014.Resources.csproj">
+      <Project>{168EACA5-B71A-422C-A10C-D6622F89FAC8}</Project>
+      <Name>FullStopDotNet2014.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -76,9 +82,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -13,6 +13,7 @@ namespace FullStopDotNet2014.Data
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+            
         }
 
         public ApplicationDbContext(string nameOrConnectionString):base(nameOrConnectionString)
