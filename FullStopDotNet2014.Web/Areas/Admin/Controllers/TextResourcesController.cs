@@ -3,31 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FullStopDotNet2014.Common.Utilities;
 using FullStopDotNet2014.Data.Models;
 using FullStopDotNet2014.Services.Interfaces;
-using FullStopDotNet2014.Web.Controllers;
 using FullStopDotNet2014.Web.Resources;
-using Omu.ValueInjecter;
+using FullStopDotNet2014.Web.ViewModels;
+using FullStopDotNet2014.Web.Extensions;
+using FullStopDotNet2014.Web.ViewModels.Admin;
 
 namespace FullStopDotNet2014.Web.Areas.Admin.Controllers
 {
-    [RouteArea("Admin")]
-    [Authorize(Roles = RoleNames.EditContentRole)]
-    public class AdminControllerBase : CommonControllerBase
-    {
-        protected AdminControllerBase(TextResources textResources) : base(textResources)
-        {
-        }
-    }
-
-    
     [RoutePrefix("TextResources")]
     public class TextResourcesController : AdminControllerBase
     {
         private readonly ITextResourceService _textResourceService;
 
-        public TextResourcesController(TextResources textResources, ITextResourceService textResourceService) : base(textResources)
+        public TextResourcesController(TextResourceValues textResourceValues, ITextResourceService textResourceService) : base(textResourceValues)
         {
             _textResourceService = textResourceService;
         }
@@ -36,8 +26,12 @@ namespace FullStopDotNet2014.Web.Areas.Admin.Controllers
         public ActionResult Edit(string name, string culture)
         {
             var resource = _textResourceService.GetTextResource(name, culture);
-
-            return View(new TextResourceViewModel().InjectFrom(resource));
+            var viewModel = new ModalEditViewModelBase<TextResourceViewModel>
+            {
+                ModalPostUrl = Url.Action("Edit"),
+                ViewModel = new TextResourceViewModel().InjectFrom(resource)
+            };
+            return View(viewModel);
         }
         [HttpPost]
         public ActionResult Edit(TextResourceViewModel viewModel)
@@ -46,13 +40,5 @@ namespace FullStopDotNet2014.Web.Areas.Admin.Controllers
 
             return Json(true);
         }
-    }
-
-    public class TextResourceViewModel 
-    {
-        public string Name { get; set; }
-        public string Culture { get; set; }
-        [AllowHtml]
-        public string Value { get; set; }
     }
 }

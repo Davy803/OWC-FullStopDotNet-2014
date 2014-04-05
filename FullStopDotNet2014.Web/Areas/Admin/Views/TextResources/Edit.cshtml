@@ -1,10 +1,11 @@
-﻿@model FullStopDotNet2014.Web.Areas.Admin.Controllers.TextResourceViewModel
+﻿@using FullStopDotNet2014.Web.ViewModels
+@model ModalEditViewModelBase<FullStopDotNet2014.Web.ViewModels.Admin.TextResourceViewModel> 
 
 @{
     Layout = "~/Views/Shared/_ModalLayout.cshtml";
-    ViewBag.Url = Url.Action("Edit");
 }
 
 <div>
-    @Html.EditorForModel()
+    @Html.EditorFor(x=>x.ViewModel)
+    @*@Html.EditorFor(x => x.ViewModel.Value)*@
 </div>

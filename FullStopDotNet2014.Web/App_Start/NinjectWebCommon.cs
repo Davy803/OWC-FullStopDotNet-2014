@@ -70,14 +70,7 @@ namespace FullStopDotNet2014.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //kernel.Bind<ApplicationDbContext>().ToSelf().InRequestScope();
             kernel.Bind<IResourceProvider>().To<DbResourceProvider>().InRequestScope();
-            //kernel.Bind(
-            //    x =>
-            //        x.FromAssemblyContaining<ServiceBase>()
-            //            .SelectAllInterfaces()
-            //            .BindSingleInterface()
-            //            .Configure(c => c.InRequestScope()));
             kernel.Bind(
                 x =>
                     x.FromAssemblyContaining<ServiceBase>()

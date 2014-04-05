@@ -5,11 +5,11 @@ namespace FullStopDotNet2014.Web.Controllers
 {
     public class CommonControllerBase : Controller
     {
-        protected CommonControllerBase(TextResources textResources)
+        protected CommonControllerBase(TextResourceValues textResourceValues)
         {
-            TextResources = textResources;
+            TextResourceValues = textResourceValues;
         }
 
-        public TextResources TextResources { get; set; }
+        public TextResourceValues TextResourceValues { get; set; }
     }
 }

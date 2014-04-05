@@ -56,13 +56,20 @@
             
             $modal.load(url, function () {
                 $modal.modal();
+
+                Aloha.ready(function() {
+                    var $ = Aloha.jQuery;
+                    $('.@Html.EditableClass()').aloha();
+                    $('.aloha-textarea').height('auto').width('auto');
+                });
+
                 $modal.find('form').submit(function(e) {
                     e.preventDefault();
                     e.stopPropagation();
 
                     var data = $(this).serialize();
                     $.post($(this).attr('action'), data, function() {
-                        window.location = window.location;
+                        location.reload();
                     });
                 });
             });

@@ -1,12 +1,13 @@
 ﻿using System.Web.Mvc;
 using FullStopDotNet2014.Web.Resources;
 using FullStopDotNet2014.Web.ViewModels;
+using FullStopDotNet2014.Web.ViewModels.PageViewModels;
 
 namespace FullStopDotNet2014.Web.Controllers
 {
     public class HomeController : CommonControllerBase
     {
-        public HomeController(TextResources textResources) : base(textResources)
+        public HomeController(TextResourceValues textResourceValues) : base(textResourceValues)
         {
         }
 
@@ -19,7 +20,7 @@ namespace FullStopDotNet2014.Web.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View(new ViewModelBase(TextResources));
+            return View(new PageViewModelBase(TextResourceValues));
         }
 
         public ActionResult Contact()

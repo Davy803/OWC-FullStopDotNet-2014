@@ -39,11 +39,11 @@ using Resources.Abstract;
 
 namespace FullStopDotNet2014.Web.Resources
 {
-    public class TextResources 
+    public class TextResourceValues 
     {
         private readonly IResourceProvider _resourceProvider;
 
-        public TextResources(IResourceProvider resourceProvider)
+        public TextResourceValues(IResourceProvider resourceProvider)
         {
             _resourceProvider = resourceProvider;
         }
