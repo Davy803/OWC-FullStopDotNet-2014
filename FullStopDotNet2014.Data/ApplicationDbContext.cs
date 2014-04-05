@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using FullStopDotNet2014.Data.Migrations;
 using FullStopDotNet2014.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -14,6 +15,16 @@ namespace FullStopDotNet2014.Data
         {
         }
 
+        public ApplicationDbContext(string nameOrConnectionString):base(nameOrConnectionString)
+        {
+            
+        }
+
         public DbSet<TextResource> TextResources { get; set; }
+
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+        }
     }
 }

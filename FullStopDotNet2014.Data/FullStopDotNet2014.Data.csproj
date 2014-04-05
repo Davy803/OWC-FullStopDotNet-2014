@@ -63,6 +63,7 @@
       <DependentUpon>201404020400594_AddTextResources.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\DataSeeder.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\TextResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
