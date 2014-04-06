@@ -30,6 +30,11 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -295,6 +300,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TextResources.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\fullstopnet.pubxml" />
     <None Include="Properties\PublishProfiles\Sandbox - Ferenc.pubxml" />
     <None Include="Properties\PublishProfiles\Sandbox - Jen.pubxml" />
     <None Include="Properties\PublishProfiles\Sandbox - Matt.pubxml" />
@@ -317,7 +323,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

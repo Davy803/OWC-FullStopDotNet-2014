@@ -18,7 +18,7 @@
     //throw new Exception(System.Data.Entity.SqlServer.SqlProviderServices.Instance.GetType().ToString());
 	var hostServiceProvider = (IServiceProvider)this.Host;
 	var config = new SettingsManager(hostServiceProvider);
-    var connectionStringSettings = config.ConnectionStrings["ApplicationDbContext"];
+    var connectionStringSettings = config.ConnectionStrings["DefaultConnection"];
     var currentDirectory = Path.GetDirectoryName(config.CurrentProject.FileName);
 	
     var appDataDirectory = Path.Combine(currentDirectory, "App_Data");
