@@ -291,15 +291,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SettingsManager.cs</LastGenOutput>
     </Content>
-    <Content Include="Resources\SettingsManagerCreator.log">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SettingsManagerCreator.tt</DependentUpon>
-    </Content>
     <Content Include="Resources\TextResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TextResources.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\Sandbox - Ferenc.pubxml" />
+    <None Include="Properties\PublishProfiles\Sandbox - Jen.pubxml" />
+    <None Include="Properties\PublishProfiles\Sandbox - Matt.pubxml" />
+    <None Include="Properties\PublishProfiles\Sandbox - Ryan.pubxml" />
+    <None Include="Properties\PublishProfiles\QA.pubxml" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

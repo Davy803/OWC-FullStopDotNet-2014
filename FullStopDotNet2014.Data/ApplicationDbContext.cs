@@ -1,7 +1,8 @@
+using System.Configuration;
 using System.Data.Entity;
-using FullStopDotNet2014.Data.Migrations;
 using FullStopDotNet2014.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Configuration = FullStopDotNet2014.Data.Migrations.Configuration;
 
 namespace FullStopDotNet2014.Data
 {
@@ -11,7 +12,7 @@ namespace FullStopDotNet2014.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+            : base("ApplicationDbContext")
         {
             
         }
