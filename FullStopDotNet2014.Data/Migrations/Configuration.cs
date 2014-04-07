@@ -2,7 +2,7 @@ using System.Data.Entity.Migrations;
 
 namespace FullStopDotNet2014.Data.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
