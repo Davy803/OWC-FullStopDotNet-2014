@@ -1,13 +1,14 @@
 ﻿using System.Web.Mvc;
 using FullStopDotNet2014.Web.Resources;
 using FullStopDotNet2014.Web.ViewModels;
+using FullStopDotNet2014.Web.ViewModels.Account;
 using FullStopDotNet2014.Web.ViewModels.PageViewModels;
 
 namespace FullStopDotNet2014.Web.Controllers
 {
     public class HomeController : CommonControllerBase
     {
-        public HomeController(TextResourceValues textResourceValues) : base(textResourceValues)
+        public HomeController(ControllerCommon controllerCommon) : base(controllerCommon)
         {
         }
 

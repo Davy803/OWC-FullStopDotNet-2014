@@ -1,0 +1,15 @@
+﻿@using System.Web.UI.WebControls
+@model FullStopDotNet2014.Web.ViewModels.Admin.BlogPostViewModel
+
+@{
+    ViewBag.Title = "Edit Blog";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Edit Blog</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel();
+    <button type="submit" class="btn">Save</button>
+}

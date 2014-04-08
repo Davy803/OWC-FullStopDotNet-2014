@@ -1,7 +1,10 @@
+using System.Data.Entity;
 using FullStopDotNet2014.Data;
 using FullStopDotNet2014.Services.Implementation;
 using FullStopDotNet2014.Services.Interfaces;
 using FullStopDotNet2014.Web.App_Start;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject.Extensions.Conventions;
 using Resources.Abstract;
 using Resources.Concrete;
@@ -77,6 +80,12 @@ namespace FullStopDotNet2014.Web.App_Start
                         .SelectAllClasses()
                         .BindDefaultInterface()
                         .Configure(c => c.InRequestScope()));
+            kernel.Bind<ApplicationDbContext>().To<ApplicationDbContext>().InRequestScope();
+            kernel.Bind(typeof (IUserStore<>))
+                .To(typeof (UserStore<>))
+                .InRequestScope()
+                .WithConstructorArgument("context", kernel.Get<ApplicationDbContext>());
+            //kernel.Bind<DbContext>().To<ApplicationDbContext>().InRequestScope();
 
         }        
     }

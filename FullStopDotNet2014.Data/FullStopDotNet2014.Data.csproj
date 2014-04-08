@@ -63,9 +63,14 @@
     <Compile Include="Migrations\201404020400594_AddTextResources.Designer.cs">
       <DependentUpon>201404020400594_AddTextResources.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404080255034_AddBlogPosts.cs" />
+    <Compile Include="Migrations\201404080255034_AddBlogPosts.Designer.cs">
+      <DependentUpon>201404080255034_AddBlogPosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DataSeeder.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Models\TextResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201404020400594_AddTextResources.resx">
       <DependentUpon>201404020400594_AddTextResources.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404080255034_AddBlogPosts.resx">
+      <DependentUpon>201404080255034_AddBlogPosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

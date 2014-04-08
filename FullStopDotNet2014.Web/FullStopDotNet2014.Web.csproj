@@ -239,13 +239,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminControllerBase.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogPostsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TextResourcesController.cs" />
-    <Compile Include="Extensions\InjectionExtensions.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Resources\TextResources.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TextResources.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Account\ControllerCommon.cs" />
+    <Compile Include="ViewModels\Admin\BlogPostViewModel.cs" />
     <Compile Include="ViewModels\ModalEditViewModelBase.cs" />
     <Compile Include="ViewModels\Admin\TextResourceViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -280,6 +284,12 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\TextResources\Edit.cshtml" />
     <Content Include="Views\Shared\_ModalLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogPosts\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminHome\UserSelect.cshtml" />
+    <Content Include="Areas\Admin\Views\BlogPosts\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminEditLayoutPage.cshtml" />
     <None Include="Content\Site.scss" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -353,11 +363,15 @@
     <Content Include="Views\Shared\_AlohaEditor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WysiwygString.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\UserSelect.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\BlogPostViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\TextResourcesApi\" />
   </ItemGroup>
   <ItemGroup>

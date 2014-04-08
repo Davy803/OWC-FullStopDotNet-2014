@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Omu.ValueInjecter;
+﻿using Omu.ValueInjecter;
 
-namespace FullStopDotNet2014.Web.Extensions
+namespace FullStopDotNet2014.Common.ExtensionMethods
 {
     public static class InjectionExtensions
     {

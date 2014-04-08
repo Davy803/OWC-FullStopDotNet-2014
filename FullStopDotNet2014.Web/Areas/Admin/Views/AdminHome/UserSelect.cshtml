@@ -1,0 +1,3 @@
+﻿@model List<FullStopDotNet2014.Data.Models.ApplicationUser>
+
+@Html.DropDownList("UserId", Model.Select(x => new SelectListItem { Text = x.UserName, Value = x.Id }))
