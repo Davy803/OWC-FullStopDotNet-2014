@@ -28,12 +28,16 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.CanEditContent())
+                    {
+                        <li>@Html.ActionLink("Admin Backend", "Index", "AdminHome", new { Area = "Admin" }, null)</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    
+
     <div class="container body-content">
         <div id="log"></div>
         @RenderBody()
@@ -42,7 +46,7 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    
+
     @if (User.CanEditContent())
     {
         Html.RenderPartial("_AlohaEditor");
@@ -54,27 +58,27 @@
             var $modal = $('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
             $modal.appendTo('body');
             var url = $(this).attr('data-edit-url');
-            
+
             $modal.load(url, function () {
                 $modal.modal();
 
-                Aloha.ready(function() {
+                Aloha.ready(function () {
                     var $ = Aloha.jQuery;
                     $('.@Html.EditableClass()').aloha();
                     $('.aloha-textarea').height('auto').width('auto');
                 });
 
-                $modal.find('form').submit(function(e) {
+                $modal.find('form').submit(function (e) {
                     e.preventDefault();
                     e.stopPropagation();
 
                     var data = $(this).serialize();
-                    $.post($(this).attr('action'), data, function() {
+                    $.post($(this).attr('action'), data, function () {
                         location.reload();
                     });
                 });
             });
-            
+
         })
     </script>
     @RenderSection("scripts", required: false)
