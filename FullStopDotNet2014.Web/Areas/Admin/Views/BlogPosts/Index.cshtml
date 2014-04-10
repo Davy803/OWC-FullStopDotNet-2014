@@ -1,0 +1,32 @@
+﻿@model IEnumerable<FullStopDotNet2014.Web.ViewModels.Admin.BlogPostViewModel>
+
+@{
+    ViewBag.Title = "Blog Posts";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+<h2>Blog Posts</h2>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(post.Header, "Edit", "BlogPosts", new { postId = post.Id }, null)</td>
+                    <td>@post.UserName</td>
+                    <td>@post.PublishDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    @Html.ActionLink("Create New Post", "Create", null, new { @class = "btn btn-primary" })
+</div>

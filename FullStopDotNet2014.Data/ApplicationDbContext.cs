@@ -22,6 +22,7 @@ namespace FullStopDotNet2014.Data
         }
 
         public DbSet<TextResource> TextResources { get; set; }
+        public DbSet<BlogPost> BlogPosts { get; set; }
 
         static ApplicationDbContext()
         {

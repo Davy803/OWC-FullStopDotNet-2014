@@ -5,10 +5,7 @@
 }
 else
 {
-    @*<div class="editor-label"><label for="ViewModel_Name">Name</label></div>
-        <div class="editor-field"><input class="text-box single-line" id="ViewModel_Name" name="ViewModel.Name" type="text" value="LoremIpsum"> <span class="field-validation-valid" data-valmsg-for="ViewModel.Name" data-valmsg-replace="true"></span></div>
-        <div class="editor-label"><label for="ViewModel_Culture">Culture</label></div>
-        <div class="editor-field"><input class="text-box single-line" id="ViewModel_Culture" name="ViewModel.Culture" type="text" value="en-US"> <span class="field-validation-valid" data-valmsg-for="ViewModel.Culture" data-valmsg-replace="true"></span></div>*@
+
     foreach (var prop in ViewData.ModelMetadata.Properties.Where(pm => pm.ShowForEdit && !ViewData.TemplateInfo.Visited(pm)))
     {
         if (prop.HideSurroundingHtml)

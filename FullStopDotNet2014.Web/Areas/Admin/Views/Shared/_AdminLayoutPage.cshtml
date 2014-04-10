@@ -20,18 +20,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Return to site", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (User.CanEditContent())
-                    {
-                        <li>@Html.ActionLink("Admin Backend", "Index", "AdminHome", new { Area = "Admin" }, null)</li>
-                    }
+                    <li>@Html.ActionLink("Admin Home", "Index", "AdminHome")</li>
+                    <li>@Html.ActionLink("Edit Blog Posts", "Index", "BlogPosts")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -62,18 +56,18 @@
             $modal.load(url, function () {
                 $modal.modal();
 
-                Aloha.ready(function () {
+                Aloha.ready(function() {
                     var $ = Aloha.jQuery;
                     $('.@Html.EditableClass()').aloha();
                     $('.aloha-textarea').height('auto').width('auto');
                 });
 
-                $modal.find('form').submit(function (e) {
+                $modal.find('form').submit(function(e) {
                     e.preventDefault();
                     e.stopPropagation();
 
                     var data = $(this).serialize();
-                    $.post($(this).attr('action'), data, function () {
+                    $.post($(this).attr('action'), data, function() {
                         location.reload();
                     });
                 });

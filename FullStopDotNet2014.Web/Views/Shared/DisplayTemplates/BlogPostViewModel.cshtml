@@ -1,0 +1,6 @@
+﻿@model FullStopDotNet2014.Web.ViewModels.Admin.BlogPostViewModel
+           
+
+<h3>@Model.Header</h3>
+@Html.Raw(Model.Body)
+<p><i>@Model.UserName</i> - @Model.PublishDate</p>
