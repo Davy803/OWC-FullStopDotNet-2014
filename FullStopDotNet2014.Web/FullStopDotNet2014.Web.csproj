@@ -301,12 +301,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TextResources.cs</LastGenOutput>
     </Content>
-    <None Include="Properties\PublishProfiles\Sandbox - Ferenc.pubxml" />
-    <None Include="Properties\PublishProfiles\Sandbox - Jen.pubxml" />
-    <None Include="Properties\PublishProfiles\Sandbox - Matt.pubxml" />
-    <None Include="Properties\PublishProfiles\Sandbox - Ryan.pubxml" />
-    <None Include="Properties\PublishProfiles\QA.pubxml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
+    <None Include="Properties\PublishProfiles\Sandbox - FE1 %28Ferenc%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Sandbox - FE2 %28Jen%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
